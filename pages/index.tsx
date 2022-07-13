@@ -40,13 +40,20 @@ const Home = () => {
 
     const worker = workerRef.current!;
     await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
+    await worker.loadLanguage('amh');
+    await worker.initialize('amh');
     
     const response = await worker.recognize(imageData!);
     setOcrResult(response.data.text);
     console.log(response.data);
   };
+
+  const handleClear = () => {
+    setImageData(null);
+    setOcrResult('');
+    setProgress(0);
+    setProgressLabel('idle');
+  }
 
   return (<>
     <Group align='initial' style={{ padding: '10px' }}>
@@ -65,7 +72,10 @@ const Home = () => {
       </Stack>
 
       <Stack style={{ flex: '1' }}>
-        <Button disabled={!imageData || !workerRef.current} onClick={handleExtract}>Extract</Button>
+        <Group grow>
+          <Button disabled={!imageData || !workerRef.current} onClick={handleExtract}>Extract</Button>
+          <Button onClick={handleClear}>Clear</Button>
+        </Group>
         <Text>{progressLabel.toUpperCase()}</Text>
         <Progress value={progress * 100} />
 
