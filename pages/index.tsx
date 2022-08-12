@@ -47,6 +47,13 @@ const Home = () => {
     setOcrResult(response.data.text);
     console.log(response.data);
   };
+  
+  const handleClear = () => {
+    setImageData(null);
+    setOcrResult('');
+    setProgress(0);
+    setProgressLabel('idle');
+  }
 
   const handleClear = () => {
     setImageData(null);
